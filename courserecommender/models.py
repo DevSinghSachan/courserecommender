@@ -74,8 +74,8 @@ class User(Base, Store):
 	@classmethod
 	def similarity(klass, a, b):
 		# Cosine Similarity
-		a_rankings = a.rankings
-		b_rankings = b.rankings
+		a_rankings = list(a.rankings)
+		b_rankings = list(b.rankings)
 		if len(a_rankings) == 0 or len(b_rankings) == 0:
 			return 0.0
 			
