@@ -45,15 +45,15 @@ def recommendations():
 	user = models.User.find_by_username(request.form['username'])
 	if not user:
 		user = models.User(username = request.form['username'])
-		cluster = models.Cluster.cluster_for_user(user)
-		user.cluster_id = cluster.id
-		user.save()
 	for key, value in request.form.items():
 		m = re.match("course_(\d+)", key)
 		if m:
 			course_id = m.groups()[0]
 			r = models.Ranking(course_id=course_id, user_id=user.id, value=value)
 			r.save()
+	cluster = models.Cluster.cluster_for_user(user)
+	user.cluster_id = cluster.id
+	user.save()
 	return redirect("/recommendations/%s" % user.username)
 		
 
